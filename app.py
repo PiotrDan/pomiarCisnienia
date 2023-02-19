@@ -13,4 +13,5 @@ else:
 
 @app.route('/')
 def index():
-  return '<h1>Cześć</h1>'
+  return render_template('index.html')
+
