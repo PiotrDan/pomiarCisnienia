@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-1">
+  <div class="container">
+    <a class="navbar-brand" href="{{url_for('index')}}"
+      ><img src="{{url_for('static', filename='heart_sm.png')}}" alt="" />Pomiar
+      ciśnienia</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item px-2">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{{url_for('index')}}"
+            >Pulpit</a
+          >
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="#">Ciśnienie</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="#">Waga</a>
+        </li>
+        <li class="nav-item px-2">
+          <a href="#" class="nav-link">Historia wpisów</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
