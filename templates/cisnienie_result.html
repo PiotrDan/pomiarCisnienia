@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <h1 class="mt-5 border border-success p-3 text-center">
+    Dodano wyniki pomiaru z dnia:
+    <span class="text-success">{{date_of_pressure}}</span>
+  </h1>
+  <ul class="mt-5">
+    <li class="fs-5">
+      Cisnienie skurczowe (górne):
+      <span class="text-success">{{upper_pressure}} mmHg</span>
+    </li>
+    <li class="fs-5">
+      Ciśnienie rozkurczowe(dolne):
+      <span class="text-success">{{down_pressure}} mmHg</span>
+    </li>
+    <li class="fs-5">Puls: <span class="text-success"> {{pressure}} </span></li>
+    <li class="fs-5">
+      Pora dnia badania: <span class="text-success">{{time_of_day}}</span>
+    </li>
+    <li class="fs-5">
+      Dodatkowe uwagi: <span class="text-success">{{description}}</span>
+    </li>
+  </ul>
+  <a href="{{url_for('index')}}" class="btn btn-primary btn-lg">Powrót</a>
+  <br />
+  <!-- <p>
+    Uwagi:
+    <span
+      >{% if upper_pressure > 140 and down_pressure > 90 %} Wysokie ciśnienie {%
+      endif %}</span
+    >
+  </p> -->
+</div>
+
+{% endblock %}
