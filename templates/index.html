@@ -12,4 +12,80 @@
     </div>
   </div>
 </header>
-{{super()}} {% endblock %}
+{{super()}}
+
+<!-- Main window -->
+<section id="main-window">
+  <div class="container">
+    <div class="row">
+      <!-- Table -->
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <h4>Ciśnienie Krwi</h4>
+          </div>
+          <table class="table table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Skurczowe</th>
+                <th scope="col">Rozkurczowe</th>
+                <th scope="col">Puls</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>120</td>
+                <td>80</td>
+                <td>65</td>
+                <td>2023-02-20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col md-3">
+        <div class="card bg-primary text-center text-white mb-3">
+          <div class="card-body">
+            <h3>Ciśnienie</h3>
+            <img
+              src="{{url_for('static', filename='heart2_sm.png')}}"
+              alt=""
+              class="d-block mx-auto img-fluid"
+            />
+            <a href="#" class="btn btn-outline-light btn-sm mt-3">Zobacz</a>
+          </div>
+        </div>
+
+        <div class="card bg-success text-center text-white mb-3">
+          <div class="card-body">
+            <h3>Waga</h3>
+            <img
+              src="{{url_for('static', filename='scale_sm.png')}}"
+              alt=""
+              class="d-block mx-auto img-fluid"
+            />
+            <a href="#" class="btn btn-outline-light btn-sm mt-3">Zobacz</a>
+          </div>
+        </div>
+
+        <div class="card bg-warning text-center text-white">
+          <div class="card-body">
+            <h3>Statystyki</h3>
+            <img
+              src="{{url_for('static', filename='charts_sm.png')}}"
+              alt=""
+              class="d-block mx-auto img-fluid"
+            />
+            <a href="#" class="btn btn-outline-light btn-sm mt-3">Zobacz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
