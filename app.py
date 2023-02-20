@@ -1,15 +1,29 @@
-from flask import Flask, render_template, url_for, flash, request, redirect
+from flask import Flask, render_template, url_for, flash, request, redirect, g
 import sqlite3
 from datetime import datetime, date
 
 app = Flask(__name__)
+
+app_info = {'db_file':'C:/Users/Szef/Documents/JAVA/Python_Flask/Pomiar ciśnienia/data/blood_diary.db'}
 
 if app.config['ENV'] =='production':
   app.config.from_object('config.ProductionConfig')
 elif app.config['ENV'] == 'development':
   app.config.from_object('config.DevelopmentConfig')
 else:
-  app.config.from_object('config.TestingConfig')    
+  app.config.from_object('config.TestingConfig')   
+
+def get_db():
+  if not hasattr(g, 'sqlite_db'):
+    conn = sqlite3.connect(app_info['db_file'])
+    conn.row_factory = sqlite3.Row
+    g.sqlite_db = conn
+  return g.sqlite_db
+
+@app.teardown_appcontext
+def close_db(error):
+  if hasattr(g, 'sqlite_db'):
+    g.sqlite_db.close()       
 
 @app.route('/')
 def index():
@@ -45,6 +59,11 @@ def blood_presure():
     description = ''
     if 'description' in request.form:
       description = request.form['description']  
+
+    db = get_db()
+    sql_command = 'insert into blood_pressure(upper_pressure, down_pressure, pressure, date_of_pressure, description) values(?, ?, ?, ?, ?);' 
+    db.execute(sql_command, [upper_pressure, down_pressure, pressure, date_of_pressure, description])
+    db.commit() 
 
     return render_template('cisnienie_result.html', upper_pressure=upper_pressure,  down_pressure=down_pressure, pressure=pressure, date_of_pressure=date_of_pressure, time_of_day=time_of_day, description=description)    
 
