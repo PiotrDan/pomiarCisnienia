@@ -1,8 +1,24 @@
 {% extends 'base.html' %} {% block title %} Historia pomiaru śnienia {% endblock
 %} {% block content %}
+
+<!-- HEADER -->
+<header>
+  <div id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1><i class="fas fa-cog pe-2"></i>Historia pomiaru ciśnienia</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Database -->
+
 <div class="container">
-  <h1 class="text-center">Historia pomiaru ciśnienia</h1>
-  <table class="table table-striped">
+  <h1 class="text-center mt-4">Ciśnienie</h1>
+  <table class="table table-striped table-hover mt-4">
     <thead class="table-dark">
       <tr>
         <th scope="col">#</th>
@@ -11,7 +27,10 @@
         <th scope="col"></th>
         <th scope="col">Puls</th>
         <th scope="col">Data</th>
-        <th scope="col">Uwagi</th>
+        <!-- <th scope="col">Pora dnia</th> -->
+        <th>Uwagi</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Działania</th>
       </tr>
     </thead>
     <tbody>
@@ -21,11 +40,24 @@
         <td>{{blood.upper_pressure}} mmHg</td>
         <td>{{blood.down_pressure}} mmHg</td>
         <td>
-          <img src="{{url_for('static', filename='heart_sm.png.quit')}}" alt="" />
+          <img src="{{url_for('static', filename='heart_sm.png')}}" alt="" />
         </td>
         <td>{{blood.pressure}}</td>
         <td>{{blood.date_of_pressure}}</td>
+        <!-- <td>{{blood.time_of_day}}</td> -->
+        {% if (blood.upper_pressure >= 120 and blood.upper_pressure < 140) and
+        (blood.down_pressure >= 80 and blood.down_pressure <= 89) %}
+        <td class="bg-success text-white">ciśnienie w normie</td>
+        {% elif blood.upper_pressure >= 140 and blood.down_pressure > 90 %}
+        <td class="bg-danger text-white">wysokie ciśnienie</td>
+        {% else %}
+        <td class="bg-warning text-white">ciśnienie do kontroli</td>
+        {% endif %}
         <td>{{blood.description}}</td>
+        <td>
+          <a href="#" class="btn btn-success btn-sm">Edycja</a>
+          <a href="#" class="btn btn-danger btn-sm">Usuń</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
