@@ -35,13 +35,15 @@
               </tr>
             </thead>
             <tbody>
+              {% for blood in bloods %}
               <tr>
-                <th scope="row">1</th>
-                <td>120</td>
-                <td>80</td>
-                <td>65</td>
-                <td>2023-02-20</td>
+                <th scope="row">{{blood.id}}</th>
+                <td>{{blood.upper_pressure}}</td>
+                <td>{{blood.down_pressure}}</td>
+                <td>{{blood.pressure}}</td>
+                <td>{{blood.date_of_pressure}}</td>
               </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -57,7 +59,11 @@
               alt=""
               class="d-block mx-auto img-fluid"
             />
-            <a href="#" class="btn btn-outline-light btn-sm mt-3">Zobacz</a>
+            <a
+              href="{{url_for('pressure_history')}}"
+              class="btn btn-outline-light btn-sm mt-3"
+              >Zobacz</a
+            >
           </div>
         </div>
 

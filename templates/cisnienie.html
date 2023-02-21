@@ -1,1 +1,34 @@
-
+{% extends 'base.html' %} {% block title %} Historia pomiaru śnienia {% endblock
+%} {% block content %}
+<div class="container">
+  <h1 class="text-center">Historia pomiaru ciśnienia</h1>
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Skurczowe</th>
+        <th scope="col">Rozkurczowe</th>
+        <th scope="col"></th>
+        <th scope="col">Puls</th>
+        <th scope="col">Data</th>
+        <th scope="col">Uwagi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blood in bloods %}
+      <tr>
+        <th scope="row">{{blood.id}}</th>
+        <td>{{blood.upper_pressure}} mmHg</td>
+        <td>{{blood.down_pressure}} mmHg</td>
+        <td>
+          <img src="{{url_for('static', filename='heart_sm.png.quit')}}" alt="" />
+        </td>
+        <td>{{blood.pressure}}</td>
+        <td>{{blood.date_of_pressure}}</td>
+        <td>{{blood.description}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
