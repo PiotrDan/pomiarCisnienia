@@ -28,10 +28,10 @@ def close_db(error):
 @app.route('/')
 def index():
   db = get_db()
-  sql_command = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure, date_of_pressure, description from blood_pressure;'
+  sql_command = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure from blood_pressure;'
   cur = db.execute(sql_command)
   bloods = cur.fetchall()
-  return render_template('index.html', bloods=bloods)
+  return render_template('index.html', active_menu='home', bloods=bloods)
 
 @app.route('/blood_presure', methods=['POST', 'GET'])
 def blood_presure():
@@ -74,10 +74,10 @@ def blood_presure():
 @app.route('/pressure_history')
 def pressure_history():
   db = get_db()
-  sql_command = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure, date_of_pressure, description from blood_pressure;'
+  sql_command = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure, date_of_pressure, time_of_day, description from blood_pressure;'
   cur = db.execute(sql_command)
   bloods = cur.fetchall()
-  return render_template('cisnienie.html', bloods=bloods)      
+  return render_template('cisnienie.html', active_menu='pressure_history', bloods=bloods)      
 
 
 
