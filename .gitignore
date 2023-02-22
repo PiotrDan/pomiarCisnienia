@@ -132,3 +132,4 @@ dmypy.json
 # Własne
 nauka
 *.png
+*.sql
