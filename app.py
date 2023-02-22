@@ -77,7 +77,15 @@ def pressure_history():
   sql_command = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure, date_of_pressure, time_of_day, description from blood_pressure;'
   cur = db.execute(sql_command)
   bloods = cur.fetchall()
-  return render_template('cisnienie.html', active_menu='pressure_history', bloods=bloods)      
+  return render_template('cisnienie.html', active_menu='pressure_history', bloods=bloods)
+
+@app.route('/delete_pressure/<int:pressure_id>')
+def delete_pressure(pressure_id):
+  db = get_db()
+  sql_statment = 'delete from blood_pressure where id=?;'
+  db.execute(sql_statment, [pressure_id])
+  db.commit()
+  return redirect(url_for('pressure_history'))          
 
 
 

@@ -133,3 +133,4 @@ dmypy.json
 nauka
 *.png
 *.sql
+data/
