@@ -28,7 +28,7 @@
         <th scope="col">Puls</th>
         <th scope="col">Data</th>
         <!-- <th scope="col">Pora dnia</th> -->
-        <th>Uwagi</th>
+        <th scope="col">Ostrzeżenia</th>
         <th scope="col">Opis</th>
         <th scope="col">Działania</th>
       </tr>
@@ -37,21 +37,37 @@
       {% for blood in bloods %}
       <tr>
         <th scope="row">{{blood.id}}</th>
-        <td>{{blood.upper_pressure}} mmHg</td>
-        <td>{{blood.down_pressure}} mmHg</td>
         <td>
-          <img src="{{url_for('static', filename='heart2_sm.png')}}" alt="" />
+          <span class="fs-4 text-danger">{{blood.upper_pressure}}</span>
+          <span class="text-muted">mmHg</span>
         </td>
-        <td>{{blood.pressure}}</td>
+        <td>
+          <span class="fs-4 text-success">{{blood.down_pressure}}</span>
+          <span class="text-muted">mmHg</span>
+        </td>
+        <td>
+          <img src="{{url_for('static', filename='heart2_sm_2.png')}}" alt="" />
+        </td>
+        <td><span class="fs-4 text-secondary">{{blood.pressure}}</span></td>
         <td>{{blood.date_of_pressure}}</td>
         <!-- <td>{{blood.time_of_day}}</td> -->
         {% if (blood.upper_pressure >= 120 and blood.upper_pressure < 140) and
         (blood.down_pressure >= 80 and blood.down_pressure <= 89) %}
-        <td class="bg-success text-white">ciśnienie w normie</td>
+        <td class="">
+          <img src="{{url_for('static', filename='green_sm.png')}}" alt="" />
+        </td>
         {% elif blood.upper_pressure >= 140 and blood.down_pressure > 90 %}
-        <td class="bg-danger text-white">wysokie ciśnienie</td>
+        <td class="">
+          <img
+            src="{{url_for('static', filename='red_sm.png')}}"
+            alt=""
+            class="img-fluid px-auto d-block"
+          />
+        </td>
         {% else %}
-        <td class="bg-warning text-white">ciśnienie do kontroli</td>
+        <td class="">
+          <img src="{{url_for('static', filename='yellow_sm.png')}}" alt="" />
+        </td>
         {% endif %}
         <td>{{blood.description}}</td>
         <td>

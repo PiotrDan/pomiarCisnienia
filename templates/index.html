@@ -30,6 +30,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Skurczowe</th>
                 <th scope="col">Rozkurczowe</th>
+                <th scope="col"></th>
                 <th scope="col">Puls</th>
                 <th scope="col">Data</th>
               </tr>
@@ -38,9 +39,21 @@
               {% for blood in bloods %}
               <tr>
                 <th scope="row">{{blood.id}}</th>
-                <td>{{blood.upper_pressure}}</td>
-                <td>{{blood.down_pressure}}</td>
-                <td>{{blood.pressure}}</td>
+                <td>
+                  <span class="fs-4 text-danger">{{blood.upper_pressure}}</span>
+                  <span class="text-muted">mmHg</span>
+                </td>
+                <td>
+                  <span class="fs-4 text-success">{{blood.down_pressure}}</span>
+                  <span class="text-muted">mmHg</span>
+                </td>
+                <td scope="row">
+                  <img
+                    src="{{url_for('static', filename='heart2_sm_2.png')}}"
+                    alt=""
+                  />
+                </td>
+                <td class="fs-4 text-secondary">{{blood.pressure}}</td>
                 <td>{{blood.date_of_pressure}}</td>
               </tr>
               {% endfor %}
