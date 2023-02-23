@@ -87,6 +87,62 @@ def delete_pressure(pressure_id):
   db.commit()
   return redirect(url_for('pressure_history'))          
 
+@app.route('/edit_pressure/<int:notification_id>', methods=['GET', 'POST'])
+def edit_pressure(notification_id):  
+
+  
+  db = get_db()
+
+  if request.method == 'GET':
+
+    sql_statment = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure, description from blood_pressure where id=?;'
+    cur = db.execute(sql_statment, [notification_id])
+    notif_obj = cur.fetchone()
+
+    if notif_obj == None:
+      # flash('Brak takiego zgłoszenia usterki')
+      return redirect(url_for('pressure_history'))
+    else:
+      return render_template('edit_pressure.html', active_menu='history', notif_obj=notif_obj)  
+
+    
+  else:
+    upper_pressure = 120
+    if 'upper_pressure' in request.form:
+      upper_pressure = request.form['upper_pressure']
+
+    down_pressure = 80
+    if "down_pressure" in request.form:
+      down_pressure = request.form['down_pressure']
+
+    pressure = 65
+    if "pressure" in request.form:
+      pressure = request.form['pressure']    
+
+    date_of_pressure = ''
+    if 'date_of_pressure' in request.form:
+      date_of_pressure = request.form['date_of_pressure']  
+
+    time_of_day = 'rano'
+    if 'time_of_pressure' in request.form:
+      time_of_day = request.form['time_of_day']
+
+    description = ''
+    if 'description' in request.form:
+      description = request.form['description'] 
+
+    sql_command = '''update blood_pressure set
+                  upper_pressure = ?,
+                  down_pressure = ?,
+                  pressure = ?,
+                  date_of_pressure = ?,
+                  description = ?
+                where id = ?    
+    '''  
+    db.execute(sql_command, [upper_pressure, down_pressure, pressure, date_of_pressure, description, notification_id])
+    db.commit()
+    # flash("Dane zostały uaktualnione")
+    return redirect(url_for('pressure_history'))
 
 
 

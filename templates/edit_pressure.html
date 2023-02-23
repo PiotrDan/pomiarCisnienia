@@ -1,0 +1,123 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Edycja pomiaru ciśnienia</h1>
+    </div>
+  </div>
+
+  <form
+    action="{{url_for('edit_pressure', notification_id=notif_obj.id)}}"
+    method="POST"
+  >
+    <div class="row">
+      <div class="col-sm-4">
+        <div>
+          <label
+            for="upper_pressure"
+            class="form-label text-uppercase fs-5 text-center w-100 py-1 px-auto"
+            >Skurczowe</label
+          >
+          <input
+            type="number"
+            name="upper_pressure"
+            value="{{notif_obj.upper_pressure}}"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div>
+          <label
+            for="down_pressure"
+            class="form-label text-uppercase fs-5 text-center w-100 py-1 px-auto"
+            >Rozkurczowe</label
+          >
+          <input
+            type="number"
+            name="down_pressure"
+            value="{{notif_obj.down_pressure}}"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div>
+          <label
+            for="pressure"
+            class="form-label text-uppercase fs-5 text-center w-100 py-1 px-auto"
+            >Puls</label
+          >
+          <input
+            type="number"
+            name="pressure"
+            value="{{notif_obj.pressure}}"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-sm-4">
+        <div>
+          <label
+            for="date_of_pressure"
+            class="form-label text-uppercase fs-6 text-center w-100 py-1"
+            >Data pomiaru</label
+          >
+          <input
+            type="date"
+            name="date_of_pressure"
+            value="{{notif_obj.date_of_pressure}}"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div>
+          <label
+            for="time_of_day"
+            class="form-label text-uppercase fs-6 text-center w-100 py-1"
+            >Pora dnia</label
+          >
+          <select name="time_of_day" id="time_of_day" class="form-select">
+            <option value="rano">rano</option>
+            <option value="wieczor">wieczór</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <label
+          for="description"
+          class="form-label text-uppercase fs-6 text-center w-100 py-1"
+          >Uwagi</label
+        >
+        <textarea
+          name="description"
+          id="description"
+          cols="30"
+          rows="4"
+          class="form-control"
+        >
+{{notif_obj.description}}</textarea
+        >
+      </div>
+    </div>
+    <input
+      type="submit"
+      value="Popraw"
+      class="btn btn-primary w-100 text-uppercase py-2"
+    />
+  </form>
+</div>
+{% endblock %}
