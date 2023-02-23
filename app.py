@@ -87,8 +87,8 @@ def delete_pressure(pressure_id):
   db.commit()
   return redirect(url_for('pressure_history'))          
 
-@app.route('/edit_pressure/<int:notification_id>', methods=['GET', 'POST'])
-def edit_pressure(notification_id):  
+@app.route('/edit_pressure/<int:pressure_id>', methods=['GET', 'POST'])
+def edit_pressure(pressure_id):  
 
   
   db = get_db()
@@ -96,7 +96,7 @@ def edit_pressure(notification_id):
   if request.method == 'GET':
 
     sql_statment = 'select id, upper_pressure, down_pressure, pressure, date_of_pressure, description from blood_pressure where id=?;'
-    cur = db.execute(sql_statment, [notification_id])
+    cur = db.execute(sql_statment, [pressure_id])
     notif_obj = cur.fetchone()
 
     if notif_obj == None:
@@ -139,7 +139,7 @@ def edit_pressure(notification_id):
                   description = ?
                 where id = ?    
     '''  
-    db.execute(sql_command, [upper_pressure, down_pressure, pressure, date_of_pressure, description, notification_id])
+    db.execute(sql_command, [upper_pressure, down_pressure, pressure, date_of_pressure, description, pressure_id])
     db.commit()
     # flash("Dane zostały uaktualnione")
     return redirect(url_for('pressure_history'))
