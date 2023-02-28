@@ -1,5 +1,54 @@
 {% extends 'base.html' %} {% block content %}
 
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="confirmDeleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Usuwanie wpisu</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="idDeleteModalBody">...</div>
+      <div class="modal-footer">
+        <form action="" method="GET" id="confirmDeleteForm">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Zamknij
+          </button>
+          <button type="submit" class="btn btn-danger">Usuń</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".delete-confirm").click(function () {
+      var desc = $(this).attr("data-desc");
+      var url = $(this).attr("data-url");
+      $("#idDeleteModalBody").text(desc);
+      $("#confirmDeleteForm").attr("action", url);
+    });
+  });
+</script>
+
 <!-- HEADER -->
 <header>
   <div id="main-header" class="py-2 bg-success text-white">
@@ -66,8 +115,11 @@
           <a href="#" class="btn btn-success btn-sm">Edycja</a>
           <a
             type="button"
-            href="{{url_for('delete_weight', weight_id=weight.id)}}"
             class="btn btn-danger btn-sm delete-confirm"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmDeleteModal"
+            data-desc="{{'Czy usunąć wagę {} z dnia {}?'.format(weight.weight, weight.date_of_weight)}}"
+            data-url="{{url_for('delete_weight', weight_id=weight.id)}}"
           >
             Usuń
           </a>
