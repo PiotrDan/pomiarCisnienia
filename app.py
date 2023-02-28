@@ -192,8 +192,48 @@ def delete_weight(weight_id):
 
   return redirect(url_for('weight_history'))
 
+@app.route('/edit_weight/<int:weight_id>', methods=["GET", 'POST'])
+def edit_weight(weight_id):
+  db = get_db()
 
+  if request.method == 'GET':
+    sql_statment = 'SELECT id, weight, date_of_weight, comments FROM weights WHERE id=?;'
+    cur = db.execute(sql_statment, [weight_id])
+    weight_obj = cur.fetchone()
+    
+    if weight_obj == None:
+      return redirect(url_for('weight_history'))
+    else:
+      return render_template('edit_weight.html', active_menu='edit_weight', weight_obj=weight_obj)
 
+  else:
+    weight = 80
+    if 'weight' in request.form:
+      weight = int(request.form['weight'])  
 
+    date_of_weight = ''
+    if 'date_of_weight' in request.form:
+      date_of_weight = request.form['date_of_weight']
+
+    time_of_day = 'rano'
+    if 'time_of_day' in request.form:
+      time_of_day = request.form['time_of_day']  
+
+    comments = 'brak'
+    if 'comments' in request.form:
+      comments = request.form['comments']
+
+    sql_statment = '''UPDATE weights set
+                    weight = ?,
+                    date_of_weight = ?,
+                    comments = ?,
+                    time_of_day = ?
+                  WHERE id = ?;    
+    ''' 
+
+    db.execute(sql_statment, [weight, date_of_weight, comments, time_of_day, weight_id])
+    db.commit()
+    return redirect(url_for('weight_history'))
+      
 
 
