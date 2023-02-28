@@ -181,7 +181,16 @@ def weight_history():
   cur = db.execute(sql_command)
   weights = cur.fetchall()
   db.commit()
-  return render_template('waga.html', active_menu='weight_history', weights=weights)   
+  return render_template('waga.html', active_menu='weight_history', weights=weights)  
+
+@app.route('/delete_weight/<int:weight_id>')
+def delete_weight(weight_id):
+  db = get_db()
+  sql_statment = 'DELETE FROM weights WHERE id=?;'
+  db.execute(sql_statment, [weight_id])
+  db.commit()
+
+  return redirect(url_for('weight_history'))
 
 
 

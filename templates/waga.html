@@ -64,7 +64,11 @@
 
         <td>
           <a href="#" class="btn btn-success btn-sm">Edycja</a>
-          <a type="button" class="btn btn-danger btn-sm delete-confirm">
+          <a
+            type="button"
+            href="{{url_for('delete_weight', weight_id=weight.id)}}"
+            class="btn btn-danger btn-sm delete-confirm"
+          >
             Usuń
           </a>
         </td>
