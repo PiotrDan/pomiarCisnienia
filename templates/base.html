@@ -65,6 +65,7 @@
     </div>
 
     <!-- Modal -->
+    <!-- Blood pressure modal -->
     <div
       class="modal fade"
       id="addHeartModal"
@@ -87,7 +88,7 @@
             </h5>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close-white btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
@@ -199,6 +200,123 @@
                 type="submit"
                 value="Dodaj"
                 class="btn btn-primary w-100 text-uppercase py-2"
+              />
+            </form>
+          </div>
+          <div class="modal-footer bg-light">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Zamknij
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weight modal -->
+    <div
+      class="modal fade"
+      id="addWeightModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addWeightModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title text-uppercase" id="addWeightModalLabel">
+              <span
+                ><img
+                  src="{{url_for('static', filename='heart_scale_sm.png')}}"
+                  alt=""
+              /></span>
+              Dodaj wagę
+            </h5>
+            <button
+              type="button"
+              class="btn-close-white btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="{{url_for('weight_meassure')}}" method="POST">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div>
+                    <label
+                      for="weight"
+                      class="form-label text-uppercase fs-5 text-center w-100 py-1 px-auto"
+                      >Waga</label
+                    >
+                    <input
+                      type="number"
+                      name="weight"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div>
+                    <label
+                      for="date_of_weight"
+                      class="form-label text-uppercase fs-6 text-center w-100 py-1"
+                      >Data pomiaru</label
+                    >
+                    <input
+                      type="date"
+                      name="date_of_weight"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div>
+                    <label
+                      for="time_of_day"
+                      class="form-label text-uppercase fs-6 text-center w-100 py-1"
+                      >Pora dnia</label
+                    >
+                    <select
+                      name="time_of_day"
+                      id="time_of_day"
+                      class="form-select"
+                    >
+                      <option value="rano">rano</option>
+                      <option value="wieczor">wieczór</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col">
+                  <label
+                    for="comments"
+                    class="form-label text-uppercase fs-6 text-center w-100 py-1"
+                    >Uwagi</label
+                  >
+                  <textarea
+                    name="comments"
+                    id="comments"
+                    cols="30"
+                    rows="4"
+                    class="form-control"
+                  ></textarea>
+                </div>
+              </div>
+              <input
+                type="submit"
+                value="Dodaj"
+                class="btn btn-success w-100 text-uppercase py-2"
               />
             </form>
           </div>

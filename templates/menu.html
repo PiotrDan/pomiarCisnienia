@@ -33,7 +33,11 @@
           >
         </li>
         <li class="nav-item px-2">
-          <a class="nav-link" href="#">Waga</a>
+          <a
+            class="nav-link {{'active' if active_menu=='weight_history'}}"
+            href="{{url_for('weight_history')}}"
+            >Waga</a
+          >
         </li>
         <li class="nav-item px-2">
           <a href="#" class="nav-link">Statystki</a>

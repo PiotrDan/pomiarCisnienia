@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <h1 class="mt-5 border border-success p-3 text-center">
+    Dodano wyniki pomiaru z dnia:
+    <span class="text-success">{{date_of_weight}}</span>
+  </h1>
+  <ul class="mt-5">
+    <li class="fs-5">Waga: <span class="text-success">{{weight}} kg</span></li>
+    <li class="fs-5">
+      Pora dnia: <span class="text-success">{{time_of_day}}</span>
+    </li>
+    <li class="fs-5">
+      Dodatkowe uwagi: <span class="text-success">{{comments}}</span>
+    </li>
+  </ul>
+  <a href="{{url_for('index')}}" class="btn btn-primary btn-lg">Powrót</a>
+</div>
+{% endblock %}

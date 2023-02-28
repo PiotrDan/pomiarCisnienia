@@ -100,7 +100,6 @@ def edit_pressure(pressure_id):
     notif_obj = cur.fetchone()
 
     if notif_obj == None:
-      # flash('Brak takiego zgłoszenia usterki')
       return redirect(url_for('pressure_history'))
     else:
       return render_template('edit_pressure.html', active_menu='history', notif_obj=notif_obj)  
@@ -143,6 +142,46 @@ def edit_pressure(pressure_id):
     db.commit()
     # flash("Dane zostały uaktualnione")
     return redirect(url_for('pressure_history'))
+
+@app.route('/weight_meassure', methods=['GET', 'POST'])
+def weight_meassure():
+
+  if request.method == 'GET':
+    return render_template('base.html')
+  else:
+    
+    weight = 80
+    if 'weight' in request.form:
+      weight = int(request.form['weight'])  
+
+    date_of_weight = ''
+    if 'date_of_weight' in request.form:
+      date_of_weight = request.form['date_of_weight']
+
+    time_of_day = 'rano'
+    if 'time_of_day' in request.form:
+      time_of_day = request.form['time_of_day']  
+
+    comments = 'brak'
+    if 'comments' in request.form:
+      comments = request.form['comments']
+
+
+    db = get_db()
+    sql_command = 'INSERT INTO weights (weight, date_of_weight, time_of_day, comments) VALUES (?, ?, ?, ?);'
+    db.execute(sql_command, [weight, date_of_weight, time_of_day, comments])
+    db.commit()  
+
+  return render_template('weight_result.html', weight=weight, date_of_weight=date_of_weight, time_of_day=time_of_day, comments=comments)    
+
+@app.route('/weight_history')   
+def weight_history():
+  db = get_db()
+  sql_command = 'SELECT id, weight, date_of_weight, comments, round((weight/(1.8*1.8)),2) AS BMI FROM weights;'
+  cur = db.execute(sql_command)
+  weights = cur.fetchall()
+  db.commit()
+  return render_template('waga.html', active_menu='weight_history', weights=weights)   
 
 
 
